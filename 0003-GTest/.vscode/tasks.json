@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "process",
+      // "suppressTaskName": true,
+      "isBuildCommand": true, // cmd+shift+b,
+      // "isTestCommand": true, // cmd+shift+t,
+      "command": "bash",
+      "args": [
+        "-c",
+        "${workspaceFolder}/build.sh"
+        // "${workspaceFolder}/test.sh"
+      ],
+      // "dependsOrder": "sequence",
+      // "dependsOn": ["clean", "build:tsc"]
+    }
+  ]
+}
