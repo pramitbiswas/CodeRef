@@ -65,3 +65,14 @@ cmake -G Ninja -S ${SCRIPT_DIR}/llvm-project/llvm -B ${SCRIPT_DIR}/llvm-project/
    -DLLVM_CCACHE_BUILD=ON
 cmake --build ${SCRIPT_DIR}/llvm-project/build/ -j$((`nproc`+1))
 cmake --build ${SCRIPT_DIR}/llvm-project/build/ -j$((`nproc`+1)) --target check-mlir
+
+
+
+LLVM_BUILD_DIR=${SCRIPT_DIR}/llvm-project/build/
+cat > ${SCRIPT_DIR}/.env << EOF
+LLVM_BUILD_DIR=${LLVM_BUILD_DIR}
+MLIR_SRC_DIR=${SCRIPT_DIR}/llvm-project/mlir/
+
+LLVM_DIR=${LLVM_BUILD_DIR}/lib/cmake/llvm
+MLIR_DIR=${LLVM_BUILD_DIR}/lib/cmake/mlir
+EOF
