@@ -44,5 +44,6 @@ link_directories(${LLVM_BUILD_LIBRARY_DIR})
 add_definitions(${LLVM_DEFINITIONS})
 
 add_subdirectory(s001-add-dialect)
+# add_subdirectory(aio)
 # add_subdirectory(test)
 # add_subdirectory(hello-opt)
