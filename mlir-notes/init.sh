@@ -68,11 +68,11 @@ cmake --build ${SCRIPT_DIR}/llvm-project/build/ -j$((`nproc`+1)) --target check-
 
 
 
-LLVM_BUILD_DIR=${SCRIPT_DIR}/llvm-project/build/
+LLVM_BUILD_DIR=${SCRIPT_DIR}/llvm-project/build
 cat > ${SCRIPT_DIR}/.env << EOF
-LLVM_BUILD_DIR=${LLVM_BUILD_DIR}
+LLVM_BUILD_DIR=${LLVM_BUILD_DIR}/
 MLIR_SRC_DIR=${SCRIPT_DIR}/llvm-project/mlir/
 
-LLVM_DIR=${LLVM_BUILD_DIR}/lib/cmake/llvm
-MLIR_DIR=${LLVM_BUILD_DIR}/lib/cmake/mlir
+LLVM_DIR=${LLVM_BUILD_DIR}/lib/cmake/llvm/
+MLIR_DIR=${LLVM_BUILD_DIR}/lib/cmake/mlir/
 EOF
