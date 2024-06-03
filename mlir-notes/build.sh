@@ -6,8 +6,8 @@ cd ${SCRIPT_DIR}
 source ./.env
 
 rm -rf ${SCRIPT_DIR}/build
-
+# cmake -B ${SCRIPT_DIR}/build -S ${SCRIPT_DIR} \
 cmake -G Ninja -B ${SCRIPT_DIR}/build -S ${SCRIPT_DIR} \
   -DMLIR_DIR=$MLIR_DIR \
   -DLLVM_DIR=$LLVM_DIR
-cmake --build build
+cmake --build build #-j$((`nproc`+1))

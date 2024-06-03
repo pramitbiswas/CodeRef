@@ -46,7 +46,8 @@ fi
 if [ -d "${SCRIPT_DIR}/llvm-project/build/" ]; then
   echo "${SCRIPT_DIR}/llvm-project/build/ does exist."
 else
-  git submodule update --init --recursive
+  # git submodule update --init --recursive
+  git clone https://github.com/llvm/llvm-project.git
 
   cd ${SCRIPT_DIR}/llvm-project
 

@@ -4,6 +4,8 @@
 #include "Dialect/Joy/JoyDialect.h"
 #include "Dialect/Joy/JoyOps.h"
 
+#include "Dialect/Joy/JoyOpsDialect.cpp.inc"
+
 using namespace mlir;
 using namespace joy;
 

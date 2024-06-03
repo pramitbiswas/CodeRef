@@ -1,5 +1,4 @@
 get_filename_component(INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../include/ ABSOLUTE)
-message(PROJECT_INC_DIR="${INC_DIR}")
 
 add_mlir_dialect_library(MLIRJoy
 	JoyDialect.cpp

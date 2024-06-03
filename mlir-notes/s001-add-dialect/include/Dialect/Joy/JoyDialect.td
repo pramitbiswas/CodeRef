@@ -15,7 +15,6 @@ def Joy_Dialect : Dialect {
         for MLIR.
     }];
     let cppNamespace = "::joy";
-    let hasConstantMaterializer = 1;
 }
 
 //===----------------------------------------------------------------------===//
