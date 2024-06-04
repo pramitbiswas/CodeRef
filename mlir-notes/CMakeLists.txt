@@ -33,6 +33,5 @@ add_definitions(${LLVM_DEFINITIONS})
 
 # add_subdirectory(s001-add-dialect)
 # add_subdirectory(s002-add-to-opt)
+# add_subdirectory(s003-add-test)
 add_subdirectory(aio)
-# add_subdirectory(test)
-# add_subdirectory(hello-opt)

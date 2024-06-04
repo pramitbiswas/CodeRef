@@ -2,7 +2,14 @@
 #include "mlir/IR/MLIRContext.h"
 #include "mlir/InitAllDialects.h"
 
+#include "llvm/Support/CommandLine.h"
+
 #include "Dialect/Joy/JoyDialect.h"
+
+static llvm::cl::opt<std::string> inputFilename(llvm::cl::Positional,
+                                                llvm::cl::desc("<input file>"),
+                                                llvm::cl::init("-"),
+                                                llvm::cl::value_desc("filename"));
 
 int main(int argc, char **argv)
 {
@@ -11,7 +18,7 @@ int main(int argc, char **argv)
   mlir::registerAsmPrinterCLOptions();
 
   // Parse them
-  // cl::ParseCommandLineOptions(argc, argv, "PM compiler\n");
+  llvm::cl::ParseCommandLineOptions(argc, argv, "PM compiler\n");
 
   // Get mlir context
   mlir::MLIRContext context;

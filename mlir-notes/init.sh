@@ -16,6 +16,12 @@ arr=(
   wget
   binutils
   libssl-dev
+  bzip2
+  libncurses-dev
+  libffi-dev
+  libreadline6-dev
+  libsqlite3-dev
+  liblzma-dev
 )
 
 for i in "${arr[@]}"
@@ -55,19 +61,17 @@ else
   git config --global --add safe.directory ${SCRIPT_DIR}/mlir-notes
 
   git checkout tags/llvmorg-${LLVM_V}
-fi
 
-cmake -G Ninja -S ${SCRIPT_DIR}/llvm-project/llvm -B ${SCRIPT_DIR}/llvm-project/build/ \
+  cmake -G Ninja -S ${SCRIPT_DIR}/llvm-project/llvm -B ${SCRIPT_DIR}/llvm-project/build/ \
    -DLLVM_ENABLE_PROJECTS="mlir;bolt;clang;lld;clang-tools-extra;llvm" \
    -DLLVM_BUILD_EXAMPLES=ON \
    -DLLVM_TARGETS_TO_BUILD="Native;NVPTX;AMDGPU" \
    -DCMAKE_BUILD_TYPE=Release \
    -DLLVM_ENABLE_ASSERTIONS=ON \
    -DLLVM_CCACHE_BUILD=ON
-cmake --build ${SCRIPT_DIR}/llvm-project/build/ -j$((`nproc`+1))
-cmake --build ${SCRIPT_DIR}/llvm-project/build/ -j$((`nproc`+1)) --target check-mlir
-
-
+  cmake --build ${SCRIPT_DIR}/llvm-project/build/ -j$((`nproc`+1))
+  cmake --build ${SCRIPT_DIR}/llvm-project/build/ -j$((`nproc`+1)) --target check-mlir
+fi
 
 LLVM_BUILD_DIR=${SCRIPT_DIR}/llvm-project/build
 cat > ${SCRIPT_DIR}/.env << EOF
@@ -77,3 +81,25 @@ MLIR_SRC_DIR=${SCRIPT_DIR}/llvm-project/mlir/
 LLVM_DIR=${LLVM_BUILD_DIR}/lib/cmake/llvm/
 MLIR_DIR=${LLVM_BUILD_DIR}/lib/cmake/mlir/
 EOF
+
+# pyenv
+curl https://pyenv.run | bash
+
+BASHRC=$( [ -f "$HOME/.bash_profile" ] && echo "$HOME/.bash_profile" || echo "$HOME/.bashrc" ) \
+  && if ! grep -Fxq "export PYENV_ROOT=\"$HOME/.pyenv\"" "$BASHRC" > /dev/null ; \
+      then echo -en "\nexport PYENV_ROOT=\"$HOME/.pyenv\"\n" >> "$BASHRC" ; \
+           echo "[[ -d \$PYENV_ROOT/bin ]] && export PATH=\"\$PYENV_ROOT/bin:\$PATH\"" >> "$BASHRC" ; \
+           echo "eval \"\$(pyenv init --path)\"" >> "$BASHRC" ; \
+           echo "eval \"\$(pyenv init -)\"" >> "$BASHRC" ; \
+           echo -en "eval \"\$(pyenv virtualenv-init -)\"\n" >> "$BASHRC" ; \
+     fi
+
+source "$BASHRC"
+
+eval "$(pyenv virtualenv-init -)"
+
+pyenv install 3.12.3
+pyenv virtualenv 3.12.3 mlir-notes-3.12.3
+pyenv activate mlir-notes-3.12.3
+
+pip install -r ./requirements.txt

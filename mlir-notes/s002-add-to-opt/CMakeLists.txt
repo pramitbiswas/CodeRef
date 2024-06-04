@@ -5,4 +5,4 @@ include_directories(${PROJECT_BINARY_DIR}/${DIR_ID}/include)
 
 add_subdirectory(include)
 add_subdirectory(lib)
-add_subdirectory(source)
+add_subdirectory(tools)
