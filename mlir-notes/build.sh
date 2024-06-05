@@ -13,4 +13,6 @@ cmake -G Ninja -B ${SCRIPT_DIR}/build -S ${SCRIPT_DIR} \
   -DMLIR_DIR=$MLIR_DIR \
   -DLLVM_DIR=$LLVM_DIR
 cmake --build build -j$((`nproc`+1))
+cmake --build build -j$((`nproc`+1)) --target mlir-doc
 cmake --build build -j$((`nproc`+1)) --target check-mlir-flow
+# ${SCRIPT_DIR}/build/bin/flow-opt --help
