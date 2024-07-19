@@ -75,8 +75,11 @@ class Str
   // ipstr will use copy constructor
   Str& operator=(Str ipstr) noexcept
   {
-    std::swap(this->res, ipstr.res);
-    std::swap(this->len, ipstr.len);
+    if(this != &ipstr)
+    {
+      std::swap(this->res, ipstr.res);
+      std::swap(this->len, ipstr.len);
+    }
     return *this;
   }
 
